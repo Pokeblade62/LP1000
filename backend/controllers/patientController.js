@@ -30,12 +30,8 @@ exports.patient = (req, res) => {
 //Add patient data
 exports.patient_add = (req, res) => {
 
-  jwt.verify(req.token,process.env.TOKEN_SECRET, (err,authData)=>{
-    if(err){
-      res.send("invalid token")
-    } else{
       const payload = {
-        id: 3,
+        id: 4,
         name: "PatientAfterAuth",
         contact: 9766540865,
         email: "patientAfterAuth@gmail.com",
@@ -46,11 +42,10 @@ exports.patient_add = (req, res) => {
       const sql = "INSERT INTO patient SET ?";
 
     db.query(sql, payload, (err, result) => {
-    err ? console.log(err) : res.status(200).json({message: "Patient added successfully", authData: authData});
+    err ? console.log(err) : res.status(200).json({message: "Patient added successfully"});
   });
 
-    }
-  })
+  
   //const {id,name,contact,dob} = req.body
 
 };

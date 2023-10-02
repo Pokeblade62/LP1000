@@ -5,10 +5,12 @@ const app = express()
 const authController = require("../controllers/authController")
 const patientController = require("../controllers/patientController")
 const authMiddleware = require("../middlewares/authMiddleware")
+const validateMiddleware = require("../middlewares/validate")
+
 
 // app.route('/').get(home)
 
-app.route('/signup').post(authController.signup)
+app.post('/signup',validateMiddleware.authLoginValidator,authController.signup)
 app.route('/signin').post(authController.signin)
 app.route('/patient').get(authMiddleware.verifyUserToken, patientController.patient)
 app.route('/patient').post(authMiddleware.verifyUserToken, authMiddleware.superAdmin,patientController.patient_add)

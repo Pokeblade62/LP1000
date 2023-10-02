@@ -1,7 +1,7 @@
 const db = require("../database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const Joi = require("joi")
 const express = require("express");
 const app = express();
 require('dotenv').config();
@@ -40,18 +40,21 @@ app.use(express.json());
 
 };
 
+
+
+
+
 //signup
  exports.signup = async (req, res) => {
-  //const {email,password}=req.body
+  const {name,email,password}=req.body
+
 
   const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash("admin11123", salt);
+  const hashPassword = await bcrypt.hash(password, salt);
 
-  console.log(hashPassword);
   const payload = {
-    id: 4,
-    name: "admin4",
-    email: "admin4@ghospital.com",
+    name: name,
+    email: email,
     password: hashPassword,
     last_login: "2023-09-22",
     permission: "view",
